@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novanectar Services Pvt Ltd | Digital IT Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Light & Dark Mode */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --accent: #06b6d4;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.90);
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --nav-bg: rgba(15, 23, 42, 0.90);
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 { color: var(--text-main); font-weight: 700; }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(79, 70, 229, 0.15);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.85rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+        }
+
+        .btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo i { color: var(--primary); font-size: 1.8rem; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); font-weight: 600; }
+
+        .theme-toggle { background: transparent; border: none; font-size: 1.3rem; color: var(--text-main); cursor: pointer; padding: 5px; transition: transform 0.3s; }
+        .theme-toggle:hover { transform: scale(1.1); color: var(--primary); }
+
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
+
+        /* General Layout & Grid */
+        .section-pad { padding: 100px 0; }
+        .section-header { text-align: center; max-width: 600px; margin: 0 auto 3.5rem; }
+        .section-header h2 { font-size: 2.5rem; margin-top: 0.5rem; }
+        .section-header p { color: var(--text-muted); margin-top: 0.5rem; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+
+        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem; box-shadow: var(--shadow); transition: var(--transition); }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .icon-wrapper { width: 60px; height: 60px; background: rgba(79, 70, 229, 0.15); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; }
+
+        /* Portfolio */
+        .filter-btn-group { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .filter-btn { padding: 0.5rem 1.2rem; border-radius: 20px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); cursor: pointer; font-weight: 500; transition: var(--transition); }
+        .filter-btn.active, .filter-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+        .portfolio-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); }
+        .portfolio-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .portfolio-img { height: 200px; background: linear-gradient(45deg, #3730a3, #06b6d4); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+        .portfolio-info { padding: 1.5rem; }
+
+        /* Forms & Calculator */
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .form-control { width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: var(--bg-main); color: var(--text-main); outline: none; transition: border-color 0.3s; }
+        .form-control:focus { border-color: var(--primary); }
+        .checkbox-group { display: flex; flex-direction: column; gap: 0.8rem; }
+        .checkbox-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; }
+        .price-display { background: rgba(79, 70, 229, 0.1); border: 2px dashed var(--primary); border-radius: 16px; padding: 2.5rem; text-align: center; }
+        .price-number { font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1; margin: 0.5rem 0; }
+
+        /* FAQ Accordion */
+        .accordion { max-width: 700px; margin: 0 auto; }
+        .accordion-item { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; transition: var(--transition); }
+        .accordion-header { padding: 1.2rem 1.5rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .accordion-content { max-height: 0; overflow: hidden; padding: 0 1.5rem; color: var(--text-muted); transition: max-height 0.3s ease, padding 0.3s ease; }
+        .accordion-item.active { border-color: var(--primary); }
+        .accordion-item.active .accordion-header i { transform: rotate(180deg); color: var(--primary); }
+        .accordion-item.active .accordion-content { max-height: 200px; padding: 0 1.5rem 1.2rem; }
+
+        /* Footer */
+        footer { background: #0b1120; color: #94a3b8; padding: 40px 0; text-align: center; font-size: 0.9rem; border-top: 1px solid #1e293b; margin-top: auto; }
+
+        /* Responsive */
+        @media (max-width: 968px) { .grid-2 { grid-template-columns: 1fr; gap: 2rem; } }
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-links { position: absolute; top: 80px; left: -100%; width: 100%; background: var(--bg-card); flex-direction: column; padding: 2rem 0; box-shadow: var(--shadow); transition: left 0.3s ease; border-bottom: 1px solid var(--border-color); }
+            .nav-links.active { left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo"><i class="fas fa-cubes"></i><div><span>Nova</span>nectar</div></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-item active">Home</a></li>
+                <li><a href="#about" class="nav-item">About Us</a></li>
+                <li><a href="#services" class="nav-item">Services & Pricing</a></li>
+                <li><a href="#portfolio" class="nav-item">Portfolio</a></li>
+                <li><a href="#contact" class="nav-item">Contact</a></li>
+                <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme"><i class="fas fa-moon" id="themeIcon"></i></button></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HOME / HERO -->
+    <section id="home" class="section-pad" style="padding-top: 160px;">
+        <div class="container grid-2">
+            <div>
+                <span class="tag">Next-Gen IT Solutions</span>
+                <h1 style="font-size: 3.5rem; line-height: 1.15; margin-bottom: 1.5rem;">Empowering Your Brand With <span style="color: var(--primary);">Digital Excellence</span></h1>
+                <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 2.5rem;">We build scalable web platforms, innovative mobile applications, and accelerate enterprises through data-driven digital transformation.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="#services" class="btn btn-primary">Estimate Project <i class="fas fa-calculator"></i></a>
+                    <a href="#about" class="btn btn-outline">Learn About Us</a>
+                </div>
+            </div>
+            <div style="height: 400px; background: linear-gradient(135deg, #1e1b4b, #0f172a); border-radius: 20px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);">
+                <div style="text-align: center; color: white;">
+                    <i class="fas fa-laptop-code" style="font-size: 4rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                    <h3>Novanectar Services</h3>
+                    <p style="color: #cbd5e1; margin-top: 5px;">Innovate • Scale • Succeed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <section style="padding: 40px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); background: var(--bg-card);">
+        <div class="container grid-4" style="text-align: center;">
+            <div><h3 style="font-size: 2.5rem; color: var(--primary);">99%</h3><p style="color: var(--text-muted);">Client Satisfaction</p></div>
+            <div><h3 style="font-size: 2.5rem; color: var(--primary);">150+</h3><p style="color: var(--text-muted);">Projects Delivered</p></div>
+            <div><h3 style="font-size: 2.5rem; color: var(--primary);">24/7</h3><p style="color: var(--text-muted);">Dedicated Support</p></div>
+            <div><h3 style="font-size: 2.5rem; color: var(--primary);">5+ Yrs</h3><p style="color: var(--text-muted);">Industry Excellence</p></div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: ABOUT US -->
+    <section id="about" class="section-pad">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Who We Are</span>
+                <h2>Engineering Digital Success</h2>
+                <p>Founded with a vision to simplify complex technology, Novanectar bridges the gap between ambitious business ideas and robust software execution.</p>
+            </div>
+            <div class="grid-2" style="margin-bottom: 4rem;">
+                <div>
+                    <h3>Our Mission & Vision</h3>
+                    <p style="color: var(--text-muted); margin: 1rem 0;">We believe that powerful technology should be accessible, scalable, and intuitive. Our goal is to empower enterprises by replacing outdated legacy systems with agile, cloud-native solutions.</p>
+                    <p style="color: var(--text-muted);">Whether creating a startup prototype or scaling an enterprise platform, we treat every line of code as an investment in your business growth.</p>
+                </div>
+                <div class="grid-2" style="gap: 1.5rem;">
+                    <div class="card" style="padding: 1.5rem;"><i class="fas fa-bullseye" style="color: var(--primary); font-size: 2rem; margin-bottom: 0.5rem;"></i><h4>Precision</h4><p style="color: var(--text-muted); font-size: 0.9rem;">Zero-bug tolerance and agile testing.</p></div>
+                    <div class="card" style="padding: 1.5rem;"><i class="fas fa-bolt" style="color: var(--accent); font-size: 2rem; margin-bottom: 0.5rem;"></i><h4>Velocity</h4><p style="color: var(--text-muted); font-size: 0.9rem;">Rapid deployment and fast-track delivery.</p></div>
+                </div>
+            </div>
+            
+            <h3 style="text-align: center; margin-bottom: 2rem;">Meet Our Core Leadership</h3>
+            <div class="grid-3">
+                <div class="card" style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: #e0e7ff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;"><i class="fas fa-user-tie"></i></div>
+                    <h3>Rajesh Sharma</h3><p style="color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">Founder & CEO</p><p style="color: var(--text-muted); font-size: 0.95rem;">10+ years driving digital strategy and enterprise software architecture.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: #e0e7ff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Ananya Verma</h3><p style="color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">Head of Engineering</p><p style="color: var(--text-muted); font-size: 0.95rem;">Specialist in cloud infrastructure, DevOps pipelines, and AI integration.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: #e0e7ff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem;"><i class="fas fa-chart-pie"></i></div>
+                    <h3>Vikram Patel</h3><p style="color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">Director of Growth</p><p style="color: var(--text-muted); font-size: 0.95rem;">Mastermind behind data-driven SEO campaigns and client conversion strategies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: SERVICES & PRICING -->
+    <section id="services" class="section-pad" style="background: rgba(79, 70, 229, 0.03); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">What We Do</span>
+                <h2>Comprehensive IT & Digital Services</h2>
+                <p>From initial code architecture to ongoing digital marketing growth, explore our technical capabilities.</p>
+            </div>
+            <div class="grid-3" style="margin-bottom: 4rem;">
+                <div class="card"><div class="icon-wrapper"><i class="fas fa-code"></i></div><h3>Web Development</h3><p style="color: var(--text-muted);">Custom, responsive, and high-performance websites engineered using React, Node.js, and modern cloud stacks.</p></div>
+                <div class="card"><div class="icon-wrapper"><i class="fas fa-mobile-screen"></i></div><h3>App Development</h3><p style="color: var(--text-muted);">Seamless Android and iOS mobile applications built with Flutter and React Native to maximize user retention.</p></div>
+                <div class="card"><div class="icon-wrapper"><i class="fas fa-bullhorn"></i></div><h3>Digital Marketing</h3><p style="color: var(--text-muted);">Data-driven SEO, PPC ad campaigns, and social media growth strategies tailored to skyrocket your conversion rates.</p></div>
+                <div class="card"><div class="icon-wrapper"><i class="fas fa-paint-brush"></i></div><h3>UI/UX Design</h3><p style="color: var(--text-muted);">Visually captivating wireframes, interactive Figma prototypes, and user-centric interfaces that elevate brand identity.</p></div>
+                <div class="card"><div class="icon-wrapper"><i class="fas fa-cloud"></i></div><h3>Cloud & DevOps</h3><p style="color: var(--text-muted);">Secure AWS/Azure deployment, CI/CD pipeline automation, and zero-downtime server architecture management.</p></div>
+                <div class="card"><div class="icon-wrapper"><i class="fas fa-headset"></i></div><h3>IT Consulting</h3><p style="color: var(--text-muted);">Strategic technological advisory to modernize legacy systems, streamline internal workflows, and cut software overhead.</p></div>
+            </div>
+
+            <!-- Interactive Calculator -->
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <span class="tag">Interactive Tool</span>
+                <h3>Project Cost Estimator</h3>
+            </div>
+            <div class="card" style="max-width: 850px; margin: 0 auto; padding: 3rem;">
+                <form id="calcForm">
+                    <div class="grid-2">
+                        <div>
+                            <div class="form-group">
+                                <label>Select Primary Service:</label>
+                                <select class="form-control" id="serviceType">
+                                    <option value="25000">Basic Website Development (₹25,000)</option>
+                                    <option value="50000">Custom Web Application (₹50,000)</option>
+                                    <option value="75000">iOS & Android App Development (₹75,000)</option>
+                                    <option value="30000">Complete Digital Marketing Growth (₹30,000)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Project Timeline:</label>
+                                <select class="form-control" id="timeline">
+                                    <option value="1">Standard Delivery (Normal Speed)</option>
+                                    <option value="1.25">Urgent Priority (+25% Fast-Track Fee)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Value Add-ons:</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label"><input type="checkbox" class="addon" value="8000"> Advanced SEO & Analytics (+₹8,000)</label>
+                                    <label class="checkbox-label"><input type="checkbox" class="addon" value="12000"> 1 Year 24/7 Priority Support (+₹12,000)</label>
+                                    <label class="checkbox-label"><input type="checkbox" class="addon" value="15000"> Custom UI/UX Wireframing (+₹15,000)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-display">
+                            <h3 style="color: var(--text-muted); font-size: 1.1rem;">Estimated Investment</h3>
+                            <div class="price-number" id="totalPrice">₹25,000</div>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">*Real-time rough estimate. Exact scope finalized during consultation.</p>
+                            <a href="#contact" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;">Lock in Scope & Price</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: PORTFOLIO -->
+    <section id="portfolio" class="section-pad">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Portfolio</span>
+                <h2>Our Recent Deliverables</h2>
+                <p>Filter our previous projects by category to see our technical execution in action.</p>
+            </div>
+            <div class="filter-btn-group">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Dev</button>
+                <button class="filter-btn" data-filter="app">Mobile Apps</button>
+                <button class="filter-btn" data-filter="marketing">Marketing</button>
+            </div>
+            <div class="grid-3" id="portfolioGrid">
+                <div class="portfolio-card" data-category="web">
+                    <div class="portfolio-img"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="portfolio-info"><h4>E-Commerce Platform</h4><p style="color: var(--text-muted);">High-conversion online retail store with automated inventory tracking.</p></div>
+                </div>
+                <div class="portfolio-card" data-category="app">
+                    <div class="portfolio-img" style="background: linear-gradient(45deg, #059669, #10b981);"><i class="fas fa-heartbeat"></i></div>
+                    <div class="portfolio-info"><h4>Health & Fitness App</h4><p style="color: var(--text-muted);">Cross-platform iOS and Android app with real-time workout analytics.</p></div>
+                </div>
+                <div class="portfolio-card" data-category="marketing">
+                    <div class="portfolio-img" style="background: linear-gradient(45deg, #d97706, #f59e0b);"><i class="fas fa-chart-line"></i></div>
+                    <div class="portfolio-info"><h4>Fintech SEO Campaign</h4><p style="color: var(--text-muted);">300% increase in organic traffic and lead generation within 6 months.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CONTACT & FAQ -->
+    <section id="contact" class="section-pad" style="background: rgba(79, 70, 229, 0.03); border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Get In Touch</span>
+                <h2>Let's Build Something Great Together</h2>
+                <p>Have a new project in mind or need advisory on your existing IT infrastructure? Our engineering team is ready to assist you.</p>
+            </div>
+            <div class="grid-2" style="margin-bottom: 5rem;">
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Contact Information</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">Fill out the form or reach out directly via our regional office contacts below. We typically reply within 2 business hours.</p>
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;"><i class="fas fa-envelope" style="color: var(--primary); font-size: 1.5rem;"></i><div><h4 style="font-size: 1rem;">Email Us</h4><p style="color: var(--text-muted); font-size: 0.95rem;">contact@novanectar.com</p></div></div>
+                        <div style="display: flex; align-items: center; gap: 1rem;"><i class="fas fa-phone" style="color: var(--primary); font-size: 1.5rem;"></i><div><h4 style="font-size: 1rem;">Call Us</h4><p style="color: var(--text-muted); font-size: 0.95rem;">+91 (000) 000-0000</p></div></div>
+                        <div style="display: flex; align-items: center; gap: 1rem;"><i class="fas fa-map-marker-alt" style="color: var(--primary); font-size: 1.5rem;"></i><div><h4 style="font-size: 1rem;">Office Location</h4><p style="color: var(--text-muted); font-size: 0.95rem;">Tech Park, Business District, India</p></div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <form id="contactForm">
+                        <h3 style="margin-bottom: 1.5rem;">Send an Inquiry</h3>
+                        <div class="form-group"><label>Full Name</label><input type="text" class="form-control" placeholder="John Doe" required></div>
+                        <div class="form-group"><label>Email Address</label><input type="email" class="form-control" placeholder="john@example.com" required></div>
+                        <div class="form-group"><label>Message Scope</label><textarea class="form-control" rows="4" placeholder="Tell us about your project requirements..." required></textarea></div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+                        <p id="successMsg" style="color: #16a34a; font-weight: 600; margin-top: 1rem; display: none; text-align: center;">Message sent successfully!</p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div class="section-header">
+                <span class="tag">Got Questions?</span>
+                <h3>Frequently Asked Questions</h3>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header"><span>How long does it take to develop a custom website?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="accordion-content"><p>A standard business website takes roughly 2 to 4 weeks from design approval to final launch. Complex web apps or e-commerce platforms may take 6 to 8 weeks.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header"><span>Do you provide maintenance after launch?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="accordion-content"><p>Yes! We offer dedicated ongoing support, security updates, server backups, and performance optimization packages to keep your product running flawlessly.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header"><span>Will my app work on both Apple iOS and Android?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="accordion-content"><p>Absolutely. We build modern cross-platform mobile applications using React Native and Flutter, meaning you get high-performance native apps for both ecosystems.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Novanectar Services Pvt Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Complete Integrated JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Mobile Menu Toggle
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    const icon = hamburger.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-xmark');
+                });
+                
+                // Close menu when clicking a link on mobile
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navLinks.classList.remove('active');
+                        hamburger.querySelector('i').className = 'fas fa-bars';
+                    });
+                });
+            }
+
+            // 2. Dark / Light Theme Switcher
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const htmlElement = document.documentElement;
+
+            const savedTheme = localStorage.getItem('novanectar_theme') || 'light';
+            htmlElement.setAttribute('data-theme', savedTheme);
+            if (themeIcon) updateThemeIcon(savedTheme);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = htmlElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    
+                    htmlElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('novanectar_theme', newTheme);
+                    if (themeIcon) updateThemeIcon(newTheme);
+                });
+            }
+
+            function updateThemeIcon(theme) {
+                themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+
+            // 3. Highlight Active Navigation Link based on Scroll Position
+            const sections = document.querySelectorAll("section[id]");
+            const navItems = document.querySelectorAll(".nav-item");
+
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 200)) {
+                        current = section.getAttribute("id");
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove("active");
+                    if (item.getAttribute("href") === `#${current}`) {
+                        item.classList.add("active");
+                    }
+                });
+            });
+
+            // 4. Portfolio Category Filter
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+            if (filterButtons.length > 0) {
+                filterButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        filterButtons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const filterValue = btn.getAttribute('data-filter');
+
+                        portfolioCards.forEach(card => {
+                            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                                card.style.display = 'block';
+                                setTimeout(() => { card.style.opacity = '1'; }, 50);
+                            } else {
+                                card.style.opacity = '0';
+                                setTimeout(() => { card.style.display = 'none'; }, 200);
+                            }
+                        });
+                    });
+                });
+            }
+
+            // 5. Project Cost Calculator
+            const serviceType = document.getElementById('serviceType');
+            const timeline = document.getElementById('timeline');
+            const addons = document.querySelectorAll('.addon');
+            const totalPriceDisplay = document.getElementById('totalPrice');
+
+            if (serviceType && totalPriceDisplay) {
+                function calculatePrice() {
+                    let basePrice = parseFloat(serviceType.value);
+                    let speedMultiplier = parseFloat(timeline.value);
+                    let addonsTotal = 0;
+
+                    addons.forEach(addon => {
+                        if (addon.checked) addonsTotal += parseFloat(addon.value);
+                    });
+
+                    let finalTotal = (basePrice + addonsTotal) * speedMultiplier;
+                    totalPriceDisplay.textContent = '₹' + finalTotal.toLocaleString('en-IN');
+                }
+
+                serviceType.addEventListener('change', calculatePrice);
+                timeline.addEventListener('change', calculatePrice);
+                addons.forEach(addon => addon.addEventListener('change', calculatePrice));
+                calculatePrice();
+            }
+
+            // 6. FAQ Accordion Logic
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            if (accordionHeaders.length > 0) {
+                accordionHeaders.forEach(header => {
+                    header.addEventListener('click', () => {
+                        const item = header.parentElement;
+                        const isActive = item.classList.contains('active');
+                        document.querySelectorAll('.accordion-item').forEach(acc => acc.classList.remove('active'));
+                        if (!isActive) item.classList.add('active');
+                    });
+                });
+            }
+
+            // 7. Contact Form Simulation
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const btn = this.querySelector('button');
+                    const msg = document.getElementById('successMsg');
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    setTimeout(() => {
+                        btn.innerHTML = 'Submit Inquiry';
+                        msg.style.display = 'block';
+                        this.reset();
+                        setTimeout(() => { msg.style.display = 'none'; }, 5000);
+                    }, 1000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
